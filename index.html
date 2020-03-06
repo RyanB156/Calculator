@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+
+    <body>
+        <div class="base">
+            Welcome to Calculator App!<br>
+            <input type="text" id="formulabox" value="128.4+10" readonly="readonly" autofocus onclick='this.select()'>
+            <br>
+            <button id="clearButton" onclick='calc.clearText()'>Clear</button>
+            <button id="backspace" onclick='calc.backspace()'>Backspace</button>
+            <br>
+            <button id="b7" onclick='calc.addText("7")'>7</button>
+            <button id="b8" onclick='calc.addText("8")'>8</button>
+            <button id="b9" onclick='calc.addText("9")'>9</button>
+            <br>
+            <button id="b4" onclick='calc.addText("4")'>4</button>
+            <button id="b5" onclick='calc.addText("5")'>5</button>
+            <button id="b6" onclick='calc.addText("6")'>6</button>
+            <br>
+            <button id="b1" onclick='calc.addText("1")'>1</button>
+            <button id="b2" onclick='calc.addText("2")'>2</button>
+            <button id="b3" onclick='calc.addText("3")'>3</button>
+            <br>
+            <button id="b0" onclick='calc.addText("0")'>0</button>
+            <button id="enter" onclick='calc.evaluate()'>Enter</button>
+        </div>
+
+        <link rel='stylesheet' type='text/css' href='style.css'>
+        <script src='script.js'></script>
+    </body>
+</html>
