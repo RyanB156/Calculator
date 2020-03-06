@@ -33,24 +33,24 @@ var calc = {
         var start = 0, end = 0;
         var tokens = [];
         console.log(expr);
+        var lastCharOp = true;
+
         while (end < expr.length) {
+            // Grab numbers.
+            if (this.numberChars.includes(expr[end]) || (lastCharOp && expr[end] === "-")) {
+                while (this.numberChars.includes(expr[end]) || (lastCharOp && expr[end] === "-")) { 
+                    end++;
+                    lastCharOp = false;
+                }
+                console.log("Pushing a number at " + start + " " + end);
+                tokens.push(expr.substring(start, end));
+            }
             
             // Grab operators.
             if (this.operators.includes(expr[end])) {
                 console.log("Pushing operator at " + end + " " + (end + 1));
                 tokens.push(expr.substring(end, ++end));
-            }
-            // Grab numbers.
-            else { 
-                while (true) { 
-                    if (!this.numberChars.includes(expr[end]))
-                        break;
-                    else
-                        end++;
-                }
-                
-                console.log("Pushing a number at " + start + " " + end);
-                tokens.push(expr.substring(start, end));
+                lastCharOp = true;
             }
             
             start = end;
@@ -72,7 +72,7 @@ var calc = {
         while (tokens.length > 0) {
             var token = tokens.shift(); // Remove element from the beginning.
             // If token is a number add it to the queue
-            if (this.numberChars.includes(token[0])) {
+            if (this.numberChars.includes(token[0]) || (token.length >= 2 && token[0] === "-" && this.numberChars.includes(token[1]))) {
                 console.log("Pushing " + token + " into the output queue");
                 outputQueue.push(token);
             }
@@ -113,13 +113,13 @@ var calc = {
 
     evaluate: function() {
         
-        var e = ["1", "2", "+"];
         var reversePolish = this.shuntingYard(this.text);
+        console.log("Evaluating " + reversePolish);
         var s = [];
 
         while (reversePolish.length > 0) {
             var t = reversePolish.shift();
-            if (this.numberChars.includes(t[0]))
+            if (this.numberChars.includes(t[0]) || (t.length >= 2 && t[0] === "-" && this.numberChars.includes(t[1])))
                 s.push(t);
             else {
                 var b = parseFloat(s.pop()); // a <op> b.
@@ -188,6 +188,11 @@ var calc = {
         this.text = this.text.substring(0, this.text.length - 1);
         this.updateTextBox(this.text);
         this.printTextValue();
+    },
+
+    test: function() {
+        var tests = ["1+2", "1.5-3", "2*-4", "-10/2", "-4.5/9", "10-5*-2"];
+        tests.forEach(this.tokenize, this);
     }
 }
 
