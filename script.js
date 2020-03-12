@@ -76,16 +76,6 @@ var calc = {
                 console.log("Pushing " + token + " into the output queue");
                 outputQueue.push(token);
             }
-            // Otherwise it is an operator; check precedence.
-            else if (this.operators.includes(token[0])) {
-                while (opStack.length > 0 && this.opPrec(token) < this.opPrec(opStack[opStack.length - 1])) {
-                    var o = opStack.pop();
-                    console.log("Pushing " + o + " into the output queue");
-                    outputQueue.push(o);
-                }
-                console.log("Pushing " + token + " onto the operator stack");
-                opStack.push(token);
-            }
             else if (token[0] === "(") {
                 console.log("Pushing ( onto the operator stack");
                 opStack.push(token);
@@ -98,11 +88,21 @@ var calc = {
                 }
                 opStack.pop();
             }
+            // Otherwise it is an operator; check precedence.
+            else {
+                while (opStack.length > 0 && this.opPrec(token) < this.opPrec(opStack[opStack.length - 1])) {
+                    var o = opStack.pop();
+                    console.log("Pushing " + o + " into the output queue");
+                    outputQueue.push(o);
+                }
+                console.log("Pushing " + token + " onto the operator stack");
+                opStack.push(token);
+            }
                 
         }
         while (opStack.length > 0) {
             var o = opStack.pop();
-            console.log("Pushing " + o + " onto the output queue");
+            console.log("Pushing " + o + " into the output queue");
             outputQueue.push(o);
         }
             
@@ -188,6 +188,31 @@ var calc = {
         this.text = this.text.substring(0, this.text.length - 1);
         this.updateTextBox(this.text);
         this.printTextValue();
+    },
+
+    toggleSign: function() {
+        if (this.text[0] == "-")
+            this.text = this.text.substring(1, this.text.length);
+        else
+            this.text = "-" + this.text;
+        this.updateTextBox(this.text);
+    },
+
+    /*
+.oneDiv()'>1/x</button>
+                <button id="exp" onclick='calc.addText("^")'>^</button>
+                <button id="div" onclick='calc.sqrt()'>
+    */
+
+    oneDiv: function() {
+        this.text = "1/(" + this.text + ")";
+        this.evaluate();
+    },
+
+    sqrt: function() {
+        var n = parseFloat(this.text);
+        this.text = Math.sqrt(n);
+        this.updateTextBox(this.text);
     },
 
     test: function() {
