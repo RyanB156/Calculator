@@ -30,6 +30,7 @@ button {
     margin: 1px 1px 1px 1px;
     min-width: 35px;
     min-height: 35px;
+    width: 23.5%;
 }
 
 button:hover {

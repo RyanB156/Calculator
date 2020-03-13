@@ -205,11 +205,13 @@ var calc = {
     */
 
     oneDiv: function() {
+        this.evaluate();
         this.text = "1/(" + this.text + ")";
         this.evaluate();
     },
 
     sqrt: function() {
+        this.evaluate();
         var n = parseFloat(this.text);
         this.text = Math.sqrt(n);
         this.updateTextBox(this.text);
@@ -222,4 +224,4 @@ var calc = {
 }
 
 
-textbox.addEventListener("keydown", function(event) { calc.textKeyPress(event); });
+document.addEventListener("keydown", function(event) { calc.textKeyPress(event); });

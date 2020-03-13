@@ -9,6 +9,8 @@
             <input type="text" id="formulabox" value="128.4+10" readonly="readonly" autofocus onclick='this.select()'>
             <br>
             <div id="buttons">
+                <button id="leftParen" onclick='calc.addText("(")'>(</button>
+                <button id="rightParen" onclick='calc.addText(")")'>)</button>
                 <button id="clearButton" onclick='calc.clearText()'>C</button>
                 <button id="backspace" onclick='calc.backspace()'><-</button>
                 <br>
@@ -20,7 +22,7 @@
                 <button id="b7" onclick='calc.addText("7")'>7</button>
                 <button id="b8" onclick='calc.addText("8")'>8</button>
                 <button id="b9" onclick='calc.addText("9")'>9</button>
-                <button id="mult" onclick='calc.addText("*")'>*</button>
+                <button id="mult" onclick='calc.addText("*")'>x</button>
                 <br>
                 <button id="b4" onclick='calc.addText("4")'>4</button>
                 <button id="b5" onclick='calc.addText("5")'>5</button>
@@ -36,7 +38,8 @@
                 <button id="b0" onclick='calc.addText("0")'>0</button>
                 <button id="dot" onclick='calc.addText(".")'>.</button>
                 <button id="enter" onclick='calc.evaluate()'>=</button>
-                <button id="test" onclick='calc.test()'>test</button>
+
+                <!--<button id="test" onclick='calc.test()'>test</button>-->
             </div>
             
         </div>
